@@ -6,9 +6,10 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout
 from keras.optimizers import RMSprop
 
+
 batch_size = 128
 num_classes = 10
-epochs = 20
+epochs = 1
 
 # the data, shuffled and split between train and test sets
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -47,3 +48,8 @@ history = model.fit(x_train, y_train,
 score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
+
+### save weights
+json_string = model.to_json()
+open('mnist_mlp_model.json', 'w').write(json_string)
+model.save_weights('mnist_mlp_weights.h5')
